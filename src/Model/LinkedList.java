@@ -34,16 +34,36 @@ public class LinkedList <T> {
         System.out.println(current.getValue() + " -> END");
      }
 
-     public void deleteByValue(T value){
-        if (head == null){
+     public void deleteByValue(T value) {
+    if (head == null) {
+        return;
+    }
+    if (value instanceof Contact) {
+        Contact buscado = (Contact) value;
+
+        if (((Contact) head.getValue()).getName().equals(buscado.getName())) {
+            head = head.getNext();
+            size--;
             return;
         }
 
+        Node<T> current = head;
+        while (current.getNext() != null) {
+            Contact siguiente = (Contact) current.getNext().getValue();
+            if (siguiente.getName().equals(buscado.getName())) {
+                current.setNext(current.getNext().getNext());
+                size--;
+                return;
+            }
+            current = current.getNext();
+        }
+    } else {
         if (head.getValue().equals(value)) {
             head = head.getNext();
             size--;
             return;
         }
+
         Node<T> current = head;
         while (current.getNext() != null) {
             if (current.getNext().getValue().equals(value)) {
@@ -52,28 +72,34 @@ public class LinkedList <T> {
                 return;
             }
             current = current.getNext();
-            
         }
-     }
+    }
+}
 
-     public void findByValue(T value) {
-        if (head == null) {
-            System.out.println("List is empty.");
-            return;
-        }
-        Node<T> current = head;
-        while (current != null) {
-            if (current.getValue().equals(value)) {
-                System.out.println("Found: " + value);
-                return;
+
+     public T findByValue(T value) {
+    if (head == null) {
+        return null;
+    }
+    Node<T> current = head;
+    while (current != null) {
+        if (value instanceof Contact) {
+            Contact buscado = (Contact) value;
+            Contact actual = (Contact) current.getValue();
+            if (buscado.getName().equals(actual.getName())) {
+                return current.getValue();
             }
-            current = current.getNext();
+        } else {
+            if (current.getValue().equals(value)) {
+                return current.getValue();
+            }
         }
-        System.out.println("Value not found: " + value);
-    
-     }
-    
-    
+        current = current.getNext();
+    }
+    return null;
+}
+
+
     
     public int getSize() {
         return size;
@@ -81,13 +107,18 @@ public class LinkedList <T> {
     public void setSize(int size) {
         this.size = size;
     }
-    public Node getHead() {
+    public Node <T> getHead() {
         return head;
     }
-    public void setHead(Node head) {
+    public void setHead(Node<T> head) {
         this.head = head;
     }
+
+    @Override
+    public String toString() {
+        return "LinkedList [size=" + size + ", head=" + head.toString() + "]";
+    }
     
-     
+    
     
 }

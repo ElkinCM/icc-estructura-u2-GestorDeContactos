@@ -1,11 +1,12 @@
 package Controller;
+
 import Model.LinkedList;
 import Model.Contact;
 
 public class ContactManager {
-    private LinkedList<Contact<String, String>> Contacts;
+    private LinkedList<Contact> Contacts;
 
-    public ContactManager(LinkedList<Model.Contact<String, String>> contact) {
+    public ContactManager(LinkedList<Contact> contact) {
         Contacts = contact;
     }
 
@@ -13,20 +14,20 @@ public class ContactManager {
         this.Contacts = new LinkedList<>();
     }
 
-    public void addContact(Contact<String, String> contact) {
+    public void addContact(Contact contact) {
         Contacts.appendToTail(contact);
     }
-    
-    public void deleteContact(Contact<String, String> contact) {
+
+    public void deleteContact(Contact contact) {
         Contacts.deleteByValue(contact);
     }
 
-    public void findContact(Contact<String, String> contact) {
-        Contacts.findByValue(contact);
-    }
+    public Contact findContact(Contact contact) {
+    return Contacts.findByValue(contact);
+}
+
+
     public void printList() {
         Contacts.print();
     }
-
 }
- 
